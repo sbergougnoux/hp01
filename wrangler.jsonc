@@ -1,0 +1,14 @@
+{
+  // Configuration Cloudflare Workers — site statique.
+  //
+  // Pas de champ "main" : il n'y a aucun code à exécuter, uniquement des
+  // fichiers à servir. Cloudflare sert le contenu de public/ tel quel.
+  //
+  // public/ est généré par `python3 scripts/build.py` puis commité.
+
+  "name": "hp01",
+  "compatibility_date": "2026-08-29",
+  "assets": {
+    "directory": "./public/"
+  }
+}
