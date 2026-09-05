@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H0RS-P1STE #001 — Spécial rentrée — ce que l&#x27;été a changé</title>
+<meta name="description" content="L&#x27;essentiel sur les fournisseurs de modèles, l&#x27;IA agentique, MCP, les gateways et l&#x27;intégration d&#x27;entreprise — lu, trié et mis en perspective pour les architectes d&#x27;entreprise.">
+<link rel="canonical" href="https://newsletter.offro4d.ai/001/">
+<link rel="alternate" type="application/atom+xml" title="H0RS-P1STE" href="/flux.xml">
+<meta property="og:title" content="H0RS-P1STE #001 — Spécial rentrée — ce que l&#x27;été a changé">
+<meta property="og:description" content="L&#x27;essentiel sur les fournisseurs de modèles, l&#x27;IA agentique, MCP, les gateways et l&#x27;intégration d&#x27;entreprise — lu, trié et mis en perspective pour les architectes d&#x27;entreprise.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://newsletter.offro4d.ai/001/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f0c;
+    --surface: #141713;
+    --ink: #e8eae4;
+    --muted: #8a9184;
+    --lime: #c6f135;
+    --pixel: #5ce6ff;
+    --hairline: #262b24;
+    --maxw: 720px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter Tight", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--lime); text-decoration: none; }
+  a:hover, a:focus-visible { text-decoration: underline; }
+  a:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ── Masthead ─────────────────────────── */
+  header { padding: 56px 0 40px; border-bottom: 1px solid var(--hairline); }
+  .kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  .kicker .num { color: var(--lime); }
+  h1.masthead {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: clamp(44px, 9vw, 76px);
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    margin-top: 18px;
+  }
+  h1.masthead .slash { color: var(--lime); }
+  h1.masthead .bit {
+    font-family: "Silkscreen", monospace;
+    font-weight: 700;
+    color: var(--pixel);
+    font-size: 0.74em;
+    letter-spacing: 0;
+    padding: 0 0.04em;
+    text-shadow: 0 0 18px rgba(92, 230, 255, 0.35);
+  }
+  .edition {
+    display: inline-block; margin-top: 16px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--bg); background: var(--lime); padding: 4px 10px;
+  }
+  .tagline { margin-top: 14px; color: var(--muted); font-size: 15px; max-width: 52ch; }
+
+  /* ── Édito ────────────────────────────── */
+  .edito { padding: 36px 0; border-bottom: 1px solid var(--hairline); }
+  .edito p { max-width: 62ch; }
+  .edito p + p { margin-top: 14px; }
+  .edito strong { color: var(--lime); font-weight: 600; }
+
+  /* ── Piste (signature) ────────────────── */
+  main { position: relative; padding: 8px 0 40px; }
+  .trail {
+    position: absolute; top: 0; bottom: 0; left: 11px;
+    border-left: 2px dashed rgba(198, 241, 53, 0.35);
+  }
+  section.balise { position: relative; padding: 44px 0 8px 48px; }
+  section.balise::before {
+    content: ""; position: absolute; left: 4px; top: 56px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--lime);
+  }
+  .balise-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--lime);
+  }
+  h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500; font-size: 26px; letter-spacing: -0.015em;
+    margin-top: 6px;
+  }
+
+  /* ── Items ────────────────────────────── */
+  article { margin-top: 26px; }
+  article h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500; font-size: 18.5px; line-height: 1.35;
+  }
+  article p { margin-top: 8px; color: #c9cdc2; font-size: 15.5px; max-width: 60ch; }
+  .src {
+    display: block; margin-top: 8px;
+    font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted);
+  }
+  .src a { color: var(--muted); border-bottom: 1px dotted var(--muted); }
+  .src a:hover { color: var(--lime); border-color: var(--lime); text-decoration: none; }
+  .unconfirmed {
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--bg); background: var(--muted);
+    padding: 2px 7px; vertical-align: middle; margin-left: 8px;
+  }
+
+  /* ── Journal de l'été (timeline) ──────── */
+  .journal { margin-top: 20px; }
+  .journal .acteur {
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink);
+    margin-top: 22px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .journal ul { list-style: none; margin-top: 10px; }
+  .journal li {
+    display: grid; grid-template-columns: 76px 1fr; gap: 14px;
+    padding: 7px 0; font-size: 15px; color: #c9cdc2; max-width: 64ch;
+  }
+  .journal .d {
+    font-family: "JetBrains Mono", monospace; font-size: 12.5px;
+    color: var(--lime); padding-top: 2px; white-space: nowrap;
+  }
+
+  /* ── Radar (brèves) ───────────────────── */
+  .radar ul { list-style: none; margin-top: 18px; }
+  .radar li {
+    padding: 12px 0; border-top: 1px solid var(--hairline);
+    font-size: 15px; color: #c9cdc2; max-width: 62ch;
+  }
+  .radar li::before { content: "▸ "; color: var(--lime); }
+
+  /* ── Footer ───────────────────────────── */
+  footer {
+    border-top: 1px solid var(--hairline);
+    padding: 32px 0 56px; margin-top: 24px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px; color: var(--muted); letter-spacing: 0.04em;
+  }
+  footer .sig { color: var(--lime); }
+  footer p + p { margin-top: 8px; }
+
+  @media (max-width: 560px) {
+    section.balise { padding-left: 36px; }
+    .trail { left: 7px; }
+    section.balise::before { left: 0; }
+    .journal li { grid-template-columns: 62px 1fr; gap: 10px; }
+  }
+</style>
+<style>
+  /* navigation entre numéros */
+  .nav-numeros {
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    letter-spacing: 0.08em; color: var(--muted);
+    padding: 20px 0; border-top: 1px solid var(--hairline);
+  }
+  .nav-numeros a { color: var(--muted); }
+  .nav-numeros a:hover { color: var(--lime); }
+  /* archive */
+  .arch-liste { list-style: none; margin-top: 28px; }
+  .arch-liste li { border-top: 1px solid var(--hairline); }
+  .arch-liste a {
+    display: grid; grid-template-columns: 74px 1fr auto; gap: 18px;
+    align-items: baseline; padding: 18px 0; color: var(--ink);
+  }
+  .arch-liste a:hover { text-decoration: none; }
+  .arch-liste a:hover .arch-titre { color: var(--lime); }
+  .arch-num {
+    font-family: "Silkscreen", monospace; font-size: 15px; color: var(--pixel);
+  }
+  .arch-titre { font-family: "Space Grotesk", sans-serif; font-size: 17px; }
+  .arch-date {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted);
+    white-space: nowrap;
+  }
+  @media (max-width: 560px) {
+    .arch-liste a { grid-template-columns: 58px 1fr; gap: 12px; }
+    .arch-date { grid-column: 2; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">
+      <span></span>
+      <span><span class="num">#001</span> · VENDREDI 28 AOÛT 2026</span>
+    </div>
+    <h1 class="masthead" aria-label="Hors-Piste">H<span class="bit">0</span>RS<span class="slash">-</span>P<span class="bit">1</span>STE</h1>
+    <span class="edition">Spécial rentrée · ce que l&#x27;été a changé</span>
+    <p class="tagline">L&#x27;essentiel sur les fournisseurs de modèles, l&#x27;IA agentique, MCP, les gateways et l&#x27;intégration d&#x27;entreprise — lu, trié et mis en perspective pour les architectes d&#x27;entreprise.</p>
+  </header>
+
+  <div class="edito">
+    <p>Deux mois, et le décor a changé. Nvidia s&#x27;offrirait Hugging Face. Salesforce s&#x27;installe dans Claude. MCP se réécrit de fond en comble et devient un vulgaire workload HTTP. Pendant ce temps, les fournisseurs de modèles se livrent sur le milieu de gamme une guerre des prix qui commence à ressembler à celle du cloud en 2015.</p>
+    <p>Une remarque, en passant, sur la manière de lire tout ça. Les communiqués de l&#x27;été promettent beaucoup et chiffrent peu — aucun des éditeurs cités dans ce numéro ne publie de retour d&#x27;expérience client avec des coûts réels. C&#x27;est le moment de la hype, et il faut le savoir en lisant.</p>
+    <p>Reste que la question qui occupait les comités d&#x27;architecture au printemps — « quel modèle choisir ? » — a vieilli en huit semaines. Celle qui la remplace est moins excitante et beaucoup plus coûteuse : qu&#x27;est-ce qu&#x27;on met entre les modèles et le SI ?</p>
+  </div>
+
+  <main>
+    <div class="trail" aria-hidden="true"></div>
+
+    <section class="balise">
+      <span class="balise-tag">Balise 01 · Fournisseurs de modèles</span>
+      <h2>L&#x27;été des modèles, acteur par acteur</h2>
+
+      <article>
+        <h3>Nvidia s&#x27;offrirait Hugging Face pour 12,9 Md$ <span class="unconfirmed">Non confirmé</span></h3>
+        <p>Quatre-vingt-cinq fois le revenu annualisé. C&#x27;est le multiple que Nvidia aurait accepté de payer pour Hugging Face, si l&#x27;on en croit The Information : 12,9 milliards de dollars pour la plateforme où transitent les poids de modèles, les datasets et une bonne partie de l&#x27;outillage open source du secteur.</p>
+        <p>Le calendrier éclaire le prix. OpenAI, Google, Amazon et Anthropic développent tous leurs propres accélérateurs pour desserrer leur dépendance aux GPU Nvidia. Racheter le point de passage obligé de l&#x27;open source est une manière de rester incontournable même quand on ne vend plus la puce.</p>
+        <p>Ni Nvidia ni Hugging Face n&#x27;ont confirmé. À manier avec précaution, donc — mais si l&#x27;opération se fait, la question de la neutralité du hub se posera pour tous ceux qui en dépendent en production.</p>
+        <span class="src">Sources : <a href="https://www.cnbc.com/2026/08/27/nvidia-hugging-face-acquisition.html">CNBC</a> · <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/nvidia-to-buy-hugging-face-for-usd12-9-billion-report-claims-could-strengthen-nvidias-open-model-strategy-and-shore-up-position-against-rivals">Tom&#x27;s Hardware</a> · 27 août 2026</span>
+      </article>
+
+      <article>
+        <h3>Le journal de l&#x27;été</h3>
+        <div class="journal">
+          <div class="acteur">Anthropic</div>
+          <ul>
+            <li><span class="d">9 juin</span><span>Lancement du tier Mythos au-dessus d&#x27;Opus : Claude Fable 5 (grand public, garde-fous renforcés) et Mythos 5 (organisations approuvées uniquement).</span></li>
+            <li><span class="d">30 juin</span><span>Claude Sonnet 5 : le Sonnet « le plus agentique » à ce jour, proche d&#x27;Opus 4.8 sur les benchmarks agentiques pour environ un tiers du prix — tarif d&#x27;introduction (2 $/10 $ par million de tokens) rendu permanent le 10 août.</span></li>
+            <li><span class="d">26 août</span><span>Claudeforce avec Salesforce et fusion des mémoires chat/Cowork (détails en balise 02).</span></li>
+          </ul>
+        </div>
+        <div class="journal">
+          <div class="acteur">OpenAI</div>
+          <ul>
+            <li><span class="d">9 juil.</span><span>GPT-5.6, décliné fin juillet en version orientée rapport prix/performance, puis en préversion « Ultrafast » (jusqu&#x27;à 14× plus rapide) le 18 août.</span></li>
+            <li><span class="d">21 juil.</span><span>Divulgation conjointe avec Hugging Face d&#x27;un incident de sécurité survenu lors d&#x27;une évaluation de modèle, détecté en interne ; OpenAI a publié un retour d&#x27;expérience le 26 août.</span></li>
+            <li><span class="d">13 août</span><span>Début des tests publicitaires dans ChatGPT, étendus à l&#x27;Europe le 24 août — une rupture de modèle économique à suivre de près côté entreprise.</span></li>
+          </ul>
+        </div>
+        <div class="journal">
+          <div class="acteur">Google</div>
+          <ul>
+            <li><span class="d">Juillet</span><span>Trois modèles pensés pour les workloads agentiques : Gemini 3.6 Flash (efficacité token, planification code/agents), 3.5 Flash-Lite (sous-agents (subagents) basse latence à haut volume) et 3.5 Flash Cyber — 3.6 Flash et 3.5 Flash-Lite sont passés en GA depuis.</span></li>
+          </ul>
+        </div>
+        <div class="journal">
+          <div class="acteur">Mistral AI</div>
+          <ul>
+            <li><span class="d">Juillet</span><span>Un nouveau tour d&#x27;environ 3,5 Md$ valorisant l&#x27;entreprise autour de 23 Md$ serait en discussion (non confirmé) ; le revenu annualisé a dépassé 400 M$ début 2026, contre 20 M$ un an plus tôt.</span></li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="balise">
+      <span class="balise-tag">Balise 02 · Écosystème Claude &amp; MCP</span>
+      <h2>MCP passe en mode production</h2>
+
+      <article>
+        <h3>Claudeforce : Salesforce s&#x27;installe dans Claude</h3>
+        <p>Trente-sept compétences commerciales pré-construites, l&#x27;accès au pipeline en temps réel, et la possibilité d&#x27;agir sur le CRM sans quitter la fenêtre de conversation : c&#x27;est ce que Salesforce et Anthropic ont annoncé le 26 août. Les règles métier Salesforce s&#x27;appliquent à chaque action, l&#x27;authentification et les permissions restent gérées par un admin.</p>
+        <p>L&#x27;intéressant n&#x27;est pas la fonctionnalité, c&#x27;est le sens du flux. Jusqu&#x27;ici, chaque éditeur SaaS collait un assistant dans son interface. Là, c&#x27;est l&#x27;inverse : le SaaS vient s&#x27;exposer dans l&#x27;interface agentique et accepte de ne plus être l&#x27;endroit où l&#x27;utilisateur passe sa journée. Pour une maison qui a bâti son modèle sur le nombre de sièges, la décision n&#x27;a rien d&#x27;anodin.</p>
+        <span class="src">Source : <a href="https://www.salesforce.com/news/press-releases/2026/08/26/salesforce-and-anthropic-announce-claudeforce/">salesforce.com</a> · 26 août 2026</span>
+      </article>
+
+      <article>
+        <h3>Mémoire unifiée entre Claude chat et Cowork</h3>
+        <p>Anthropic fusionne les mémoires de son chat et de Claude Cowork : ce qui est appris d&#x27;un côté est disponible de l&#x27;autre, et l&#x27;utilisateur peut lire, corriger ou supprimer ce qui a été retenu. Fin du re-briefing permanent entre la phase où l&#x27;on cherche et celle où l&#x27;on exécute. Petite fonctionnalité, gros effet sur l&#x27;usage quotidien.</p>
+        <span class="src">Source : <a href="https://techcrunch.com/2026/08/25/claude-cowork-finally-remembers-what-you-told-the-app-in-chat/">TechCrunch</a> · 25 août 2026</span>
+      </article>
+
+      <article>
+        <h3>MCP : le grand virage stateless, et la suite</h3>
+        <p>C&#x27;est la révision la plus lourde depuis le lancement du protocole, et elle tient en un mot : sans état (stateless). La spécification 2026-07-28 introduit les requêtes multi-aller-retour (multi round-trip), le routage par en-têtes HTTP, des résultats de listes cachables, une autorisation durcie et un cadre formel d&#x27;extensions. Les SDK TypeScript et Python ont chacun dépassé le milliard de téléchargements.</p>
+        <p>La roadmap du 22 août annonce la suite : événements initiés par le serveur (webhooks et channels), maturation de l&#x27;extension Tasks, « Server Cards » pour inspecter un serveur avant de s&#x27;y connecter, et un transport unique.</p>
+        <p>Conséquence concrète pour les équipes d&#x27;intégration : un serveur MCP distant n&#x27;a plus rien d&#x27;exotique. C&#x27;est du HTTP. Le load-balancing, le cache et les politiques d&#x27;accès existantes s&#x27;appliquent tels quels — bonne nouvelle pour les architectures en place, moins bonne pour ceux qui vendaient de la complexité sur ce terrain.</p>
+        <span class="src">Sources : <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/">spec 2026-07-28</a> · <a href="https://blog.modelcontextprotocol.io/posts/mcp-roadmap/">roadmap</a> · 22 août 2026</span>
+      </article>
+    </section>
+
+    <section class="balise">
+      <span class="balise-tag">Balise 03 · Gateways &amp; gouvernance</span>
+      <h2>Le gateway devient le point de contrôle agentique</h2>
+
+      <article>
+        <h3>Kong Agent Gateway : la trajectoire se confirme</h3>
+        <p>Sorti en GA avec AI Gateway 3.14, Agent Gateway ajoute la gouvernance du trafic agent-à-agent (agent-to-agent, A2A) aux flux LLM et MCP déjà couverts, le tout depuis un plan de contrôle unique. Gartner, dans son Emerging Tech Adoption Radar 2026, fait du couple AI gateway et gestion des agents un prérequis d&#x27;une adoption IA maîtrisée.</p>
+        <p>Le signal le plus utile est ailleurs : le protocole A2A de Google a rejoint l&#x27;Agentic AI Foundation, sous l&#x27;égide de la Linux Foundation, qui héberge déjà MCP. Deux protocoles concurrents sous la même gouvernance, c&#x27;est un argument de moins pour les DSI qui préfèrent attendre que le marché se décante.</p>
+        <span class="src">Sources : <a href="https://konghq.com/blog/product-releases/kong-agent-gateway">konghq.com</a> · <a href="https://www.devopsdigest.com/kong-releases-ai-gateway-314">DEVOPSdigest</a></span>
+      </article>
+
+      <article>
+        <h3>Cloudflare et Google épousent le MCP stateless</h3>
+        <p>Fini les sessions persistantes (sticky sessions), les streams maintenus ouverts et le replay de messages : Cloudflare détaille sa prise en charge de la nouvelle génération du protocole, et le résumé tient en une phrase — un serveur MCP bien conçu se comporte comme un serveur web ordinaire. Google Cloud publie un constat convergent sur la montée en charge de son infrastructure agentique. Quand deux hyperscalers écrivent la même chose la même semaine, c&#x27;est que la question est tranchée.</p>
+        <span class="src">Sources : <a href="https://blog.cloudflare.com/mcp-v2/">Cloudflare</a> · <a href="https://developers.googleblog.com/scaling-ai-agent-infrastructure-with-the-mcp-stateless-updates/">Google Developers Blog</a></span>
+      </article>
+    </section>
+
+    <section class="balise">
+      <span class="balise-tag">Balise 04 · Intégration &amp; iPaaS</span>
+      <h2>L&#x27;iPaaS ne veut plus s&#x27;appeler iPaaS</h2>
+
+      <article>
+        <h3>Boomi et MuleSoft basculent en mode agentique</h3>
+        <p>Boomi ne se présente plus comme un éditeur d&#x27;intégration mais de « data activation ». Le changement de vocabulaire vaut aveu : depuis mai, un service MCP managé expose ses plus de 1 000 connecteurs comme outils appelables par Claude, Gemini, ChatGPT Enterprise ou Copilot. L&#x27;actif historique devient une bibliothèque d&#x27;outils pour agents.</p>
+        <p>Chez Salesforce, MuleSoft avance Agent Fabric — registre (registry), routage et gouvernance d&#x27;agents multi-éditeurs, en GA depuis octobre 2025 — pendant que la maison mère digère l&#x27;acquisition d&#x27;Informatica.</p>
+        <span class="src">Sources : <a href="https://www.oneio.cloud/blog/ipaas-solutions-and-vendors-compared">ONEiO</a> · <a href="https://frends.com/insights/best-ipaas-platforms-2026-compared">Frends</a></span>
+      </article>
+
+      <article>
+        <h3>Workato AIRO en GA : l&#x27;ingénierie agentique intégrée à la plateforme</h3>
+        <p>Troisième éditeur, troisième changement de dénomination : Workato n&#x27;est plus un iPaaS mais une « Control and Execution Platform for Enterprise AI ». Derrière la formule, AIRO, passé en disponibilité générale le 30 juillet. L&#x27;utilisateur apporte l&#x27;intention métier ; des agents spécialisés découvrent, conçoivent, déploient et améliorent les processus.</p>
+        <p>Cinq briques structurent l&#x27;ensemble. Foundry couvre l&#x27;ingénierie agentique sur tout le cycle projet et choisit le LLM adapté à chaque étape. Memory porte le contexte de l&#x27;organisation. Playbooks applique automatiquement les standards et patterns d&#x27;architecture maison — c&#x27;est probablement la brique la plus utile pour une DSI, et celle dont on parle le moins. Acumen supervise et recommande. Connect rend le tout utilisable depuis Claude Code, Cursor ou n&#x27;importe quel client MCP.</p>
+        <p>Le témoignage de Coinbase décrit une répartition qui mérite le détour : développeurs dans Claude Code, équipes métier dans Workato, playbooks partagés entre les deux. C&#x27;est moins spectaculaire qu&#x27;une démo d&#x27;agent autonome, et nettement plus transposable.</p>
+        <span class="src">Source : <a href="https://workato2024tf.q4web.com/news/news-details/2026/Workato-Announces-AIRO-Global-Availability-Redefining-Enterprise-Software-for-the-Agentic-Era/default.aspx">Workato (communiqué)</a> · 30 juillet 2026</span>
+      </article>
+
+      <article>
+        <h3>Kestra 2.0 en approche : l&#x27;orchestrateur français passe MCP-natif</h3>
+        <p>Kestra présente la plus grosse mise à jour de son histoire, et pour une fois la formule n&#x27;est pas exagérée : moteur d&#x27;exécution refondu, workers sans état (stateless workers) qui dialoguent en gRPC avec le plan de contrôle (control plane) sans toucher la base. Concrètement, on peut les déployer en multi-régions, en réseau restreint ou en environnement isolé (air-gapped) — un critère qui ferme ou ouvre des portes dans la banque et l&#x27;assurance.</p>
+        <p>Le volet agentique fonctionne dans les deux sens. Un déclencheur (trigger) transforme n&#x27;importe quel flow en outil nommé et appelable depuis Claude, Cursor ou un autre client MCP. Et un serveur MCP Kestra permet de créer et gérer les flows depuis un assistant. Les agents pilotent l&#x27;orchestrateur, l&#x27;orchestrateur devient un outil d&#x27;agent.</p>
+        <p>Le cœur reste sous Apache 2.0. La RC7 est disponible, avec CLI de migration et un programme early adopters qui réunit plus de 40 équipes avant la GA. Éditeur français, licence permissive, déploiement isolable : peu de candidats cochent ces trois cases à la fois.</p>
+        <span class="src">Source : <a href="https://kestra.io/blogs/kestra-2-0-almost-here">kestra.io</a> · 6 août 2026</span>
+      </article>
+    </section>
+
+    <section class="balise">
+      <span class="balise-tag">Balise 05 · Frameworks &amp; LLMOps</span>
+      <h2>L&#x27;outillage agentique se recompose</h2>
+
+      <article>
+        <h3>Volcano SDK : le pari MCP-first de Kong</h3>
+        <p>Le SDK TypeScript open-source de Kong part d&#x27;un postulat simple : MCP d&#x27;abord, plutôt que greffé après coup comme chez les frameworks de la génération LangChain. On y trouve des workflows chaînables multi-fournisseurs, l&#x27;exécution parallèle, des sous-agents coordonnés, OAuth et le traçage (tracing) OpenTelemetry. Couplé au MCP Proxy maison, il encapsule des API REST ou GraphQL existantes en serveurs MCP sans écrire de code — la promesse qui intéressera les DSI assises sur quinze ans d&#x27;API.</p>
+        <span class="src">Sources : <a href="https://konghq.com/blog/engineering/secure-ai-agents-volcano-sdk-kong-mcp-proxy">konghq.com</a> · <a href="https://github.com/Kong/volcano-sdk">GitHub</a></span>
+      </article>
+
+      <article>
+        <h3>Observabilité : Langfuse (ClickHouse) vs LangSmith, le match s&#x27;installe</h3>
+        <p>Commençons par corriger une confusion fréquente : Langfuse n&#x27;appartient pas à la galaxie LangChain. C&#x27;est un produit ClickHouse. La méprise est courante en clientèle et fausse les comparatifs.</p>
+        <p>En face, LangSmith a sorti SmithDB, sa base de traces (traces) maison écrite en Rust sur DataFusion et Vortex, avec des gains annoncés jusqu&#x27;à 15×. Chiffre d&#x27;éditeur, non reproduit indépendamment à notre connaissance.</p>
+        <p>Les deux ingèrent des traces OpenTelemetry, si bien que le vrai clivage n&#x27;est pas technique. D&#x27;un côté, le self-hosting sous licence MIT et des données que l&#x27;on peut emporter. De l&#x27;autre, runtime, gateway et observabilité chez le même éditeur. Autrement dit : réversibilité contre confort d&#x27;intégration. Le choix se fait rarement sur les benchmarks.</p>
+        <span class="src">Sources : <a href="https://langfuse.com/resources/engineering/langsmith-alternative">langfuse.com</a> · <a href="https://www.langchain.com/resources/langsmith-vs-langfuse">langchain.com</a></span>
+      </article>
+    </section>
+
+    <section class="balise radar">
+      <span class="balise-tag">Balise 06 · Radar business France</span>
+      <h2>Signaux du marché</h2>
+        <ul>
+          <li>La France compte 1 114 startups IA début 2026 (cartographie France Digitale / Sopra Steria Ventures), devant l&#x27;Allemagne et le Royaume-Uni — 45 000 emplois directs, plus de 16 Md€ levés en cumulé.</li>
+          <li>Emilabs (Yann Le Cun) a bouclé 900 M€ en mars, sur un pari AGI / modèles du monde à long terme.</li>
+          <li>Anthropic élargit son programme scientifique : 10 000 sièges gratuits ou remisés pour les équipes de recherche, extension des crédits AI for Science.</li>
+          <li>Les modèles Daybreak d&#x27;OpenAI arrivent sur AWS — la multi-distribution des modèles frontière se généralise chez les hyperscalers.</li>
+        </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="nav-numeros"><a href="https://newsletter.offro4d.ai/archive/">Tous les numéros</a></div>
+    <p><span class="sig">H0RS-P1STE</span> — la veille hebdomadaire sur l'IA agentique, les fournisseurs de modèles, les gateways et l'intégration d'entreprise.</p>
+    <p>Numéro 001 · sources vérifiées le 2026-08-28 · les informations non confirmées sont signalées comme telles.</p>
+    <p>Veille assistée par IA, relue et validée par un humain.</p>
+  </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITRE_PAGE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="canonical" href="{{URL_CANONIQUE}}">
+<link rel="alternate" type="application/atom+xml" title="H0RS-P1STE" href="/flux.xml">
+<meta property="og:title" content="{{TITRE_PAGE}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{URL_CANONIQUE}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f0c;
+    --surface: #141713;
+    --ink: #e8eae4;
+    --muted: #8a9184;
+    --lime: #c6f135;
+    --pixel: #5ce6ff;
+    --hairline: #262b24;
+    --maxw: 720px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter Tight", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--lime); text-decoration: none; }
+  a:hover, a:focus-visible { text-decoration: underline; }
+  a:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ── Masthead ─────────────────────────── */
+  header { padding: 56px 0 40px; border-bottom: 1px solid var(--hairline); }
+  .kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  .kicker .num { color: var(--lime); }
+  h1.masthead {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: clamp(44px, 9vw, 76px);
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    margin-top: 18px;
+  }
+  h1.masthead .slash { color: var(--lime); }
+  h1.masthead .bit {
+    font-family: "Silkscreen", monospace;
+    font-weight: 700;
+    color: var(--pixel);
+    font-size: 0.74em;
+    letter-spacing: 0;
+    padding: 0 0.04em;
+    text-shadow: 0 0 18px rgba(92, 230, 255, 0.35);
+  }
+  .edition {
+    display: inline-block; margin-top: 16px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--bg); background: var(--lime); padding: 4px 10px;
+  }
+  .tagline { margin-top: 14px; color: var(--muted); font-size: 15px; max-width: 52ch; }
+
+  /* ── Édito ────────────────────────────── */
+  .edito { padding: 36px 0; border-bottom: 1px solid var(--hairline); }
+  .edito p { max-width: 62ch; }
+  .edito p + p { margin-top: 14px; }
+  .edito strong { color: var(--lime); font-weight: 600; }
+
+  /* ── Piste (signature) ────────────────── */
+  main { position: relative; padding: 8px 0 40px; }
+  .trail {
+    position: absolute; top: 0; bottom: 0; left: 11px;
+    border-left: 2px dashed rgba(198, 241, 53, 0.35);
+  }
+  section.balise { position: relative; padding: 44px 0 8px 48px; }
+  section.balise::before {
+    content: ""; position: absolute; left: 4px; top: 56px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--lime);
+  }
+  .balise-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--lime);
+  }
+  h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500; font-size: 26px; letter-spacing: -0.015em;
+    margin-top: 6px;
+  }
+
+  /* ── Items ────────────────────────────── */
+  article { margin-top: 26px; }
+  article h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500; font-size: 18.5px; line-height: 1.35;
+  }
+  article p { margin-top: 8px; color: #c9cdc2; font-size: 15.5px; max-width: 60ch; }
+  .src {
+    display: block; margin-top: 8px;
+    font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted);
+  }
+  .src a { color: var(--muted); border-bottom: 1px dotted var(--muted); }
+  .src a:hover { color: var(--lime); border-color: var(--lime); text-decoration: none; }
+  .unconfirmed {
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--bg); background: var(--muted);
+    padding: 2px 7px; vertical-align: middle; margin-left: 8px;
+  }
+
+  /* ── Journal de l'été (timeline) ──────── */
+  .journal { margin-top: 20px; }
+  .journal .acteur {
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink);
+    margin-top: 22px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .journal ul { list-style: none; margin-top: 10px; }
+  .journal li {
+    display: grid; grid-template-columns: 76px 1fr; gap: 14px;
+    padding: 7px 0; font-size: 15px; color: #c9cdc2; max-width: 64ch;
+  }
+  .journal .d {
+    font-family: "JetBrains Mono", monospace; font-size: 12.5px;
+    color: var(--lime); padding-top: 2px; white-space: nowrap;
+  }
+
+  /* ── Radar (brèves) ───────────────────── */
+  .radar ul { list-style: none; margin-top: 18px; }
+  .radar li {
+    padding: 12px 0; border-top: 1px solid var(--hairline);
+    font-size: 15px; color: #c9cdc2; max-width: 62ch;
+  }
+  .radar li::before { content: "▸ "; color: var(--lime); }
+
+  /* ── Footer ───────────────────────────── */
+  footer {
+    border-top: 1px solid var(--hairline);
+    padding: 32px 0 56px; margin-top: 24px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px; color: var(--muted); letter-spacing: 0.04em;
+  }
+  footer .sig { color: var(--lime); }
+  footer p + p { margin-top: 8px; }
+
+  @media (max-width: 560px) {
+    section.balise { padding-left: 36px; }
+    .trail { left: 7px; }
+    section.balise::before { left: 0; }
+    .journal li { grid-template-columns: 62px 1fr; gap: 10px; }
+  }
+</style>
+<style>
+  /* navigation entre numéros */
+  .nav-numeros {
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    letter-spacing: 0.08em; color: var(--muted);
+    padding: 20px 0; border-top: 1px solid var(--hairline);
+  }
+  .nav-numeros a { color: var(--muted); }
+  .nav-numeros a:hover { color: var(--lime); }
+  /* archive */
+  .arch-liste { list-style: none; margin-top: 28px; }
+  .arch-liste li { border-top: 1px solid var(--hairline); }
+  .arch-liste a {
+    display: grid; grid-template-columns: 74px 1fr auto; gap: 18px;
+    align-items: baseline; padding: 18px 0; color: var(--ink);
+  }
+  .arch-liste a:hover { text-decoration: none; }
+  .arch-liste a:hover .arch-titre { color: var(--lime); }
+  .arch-num {
+    font-family: "Silkscreen", monospace; font-size: 15px; color: var(--pixel);
+  }
+  .arch-titre { font-family: "Space Grotesk", sans-serif; font-size: 17px; }
+  .arch-date {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted);
+    white-space: nowrap;
+  }
+  @media (max-width: 560px) {
+    .arch-liste a { grid-template-columns: 58px 1fr; gap: 12px; }
+    .arch-date { grid-column: 2; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">
+      <span></span>
+      <span>ARCHIVE · {{COMPTE}} NUMÉRO(S)</span>
+    </div>
+    <h1 class="masthead" aria-label="Hors-Piste">H<span class="bit">0</span>RS<span class="slash">-</span>P<span class="bit">1</span>STE</h1>
+    <p class="tagline">Tous les numéros parus.</p>
+  </header>
+
+  <main>
+    <ul class="arch-liste">
+{{LISTE}}
+    </ul>
+  </main>
+
+  <footer>
+    <div class="nav-numeros"><a href="/">← Dernier numéro</a></div>
+    <p><span class="sig">H0RS-P1STE</span> — la veille hebdomadaire sur l'IA agentique, les fournisseurs de modèles, les gateways et l'intégration d'entreprise.</p>
+    <p>Veille assistée par IA, relue et validée par un humain.</p>
+  </footer>
+</div>
+
+</body>
+</html>

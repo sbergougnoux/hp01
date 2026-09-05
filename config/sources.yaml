@@ -1,0 +1,140 @@
+# Registre des sources — H0RS-P1STE
+#
+# tier 1 = source primaire (éditeur, mainteneur, communiqué). Toujours dépouillée.
+# tier 2 = source secondaire de qualité (presse tech, analyste). Dépouillée si tier 1 muet.
+# tier 3 = signal faible / communauté. Échantillonnée, jamais citée seule.
+#
+# feed: URL du flux RSS/Atom. "?" = à vérifier au moment de l'implémentation,
+#       ne pas inventer : si le flux n'existe pas, passer en mode "scrape" ou "search".
+# cadence: hebdo | quotidien | mensuel
+#
+# Les URL de flux ci-dessous doivent être testées une par une avant mise en service.
+# Celles marquées "?" n'ont PAS été vérifiées.
+
+meta:
+  version: 1
+  langue_sortie: fr
+  derniere_revue: 2026-08-28
+
+balises:
+
+  # ── B1 · Fournisseurs de modèles ──────────────────────────────
+  - id: b1
+    nom: Fournisseurs de modèles
+    cadence: quotidien
+    sources:
+      - { nom: Anthropic News,        url: "https://www.anthropic.com/news",              tier: 1, feed: "?" }
+      - { nom: Anthropic Engineering, url: "https://www.anthropic.com/engineering",       tier: 1, feed: "?" }
+      - { nom: OpenAI Blog,           url: "https://openai.com/blog",                     tier: 1, feed: "?" }
+      - { nom: Google DeepMind Blog,  url: "https://deepmind.google/discover/blog/",      tier: 1, feed: "?" }
+      - { nom: Google Developers Blog,url: "https://developers.googleblog.com",           tier: 1, feed: "?" }
+      - { nom: Mistral AI News,       url: "https://mistral.ai/news",                     tier: 1, feed: "?" }
+      - { nom: Meta AI Blog,          url: "https://ai.meta.com/blog/",                   tier: 1, feed: "?" }
+      - { nom: Hugging Face Blog,     url: "https://huggingface.co/blog",                 tier: 1, feed: "?" }
+      - { nom: NVIDIA Newsroom,       url: "https://nvidianews.nvidia.com",               tier: 1, feed: "?" }
+    surveiller:
+      - pages de tarification et de dépréciation des modèles (changements silencieux)
+      - notes de version des SDK
+
+  # ── B2 · Écosystème MCP & agentique ───────────────────────────
+  - id: b2
+    nom: MCP & protocoles agentiques
+    cadence: quotidien
+    sources:
+      - { nom: Blog MCP,              url: "https://blog.modelcontextprotocol.io",        tier: 1, feed: "?" }
+      - { nom: Spécification MCP,     url: "https://modelcontextprotocol.io",             tier: 1, feed: "?" }
+      - { nom: MCP GitHub (releases), url: "https://github.com/modelcontextprotocol",     tier: 1, feed: "?" }
+      - { nom: Agentic AI Foundation, url: "?",                                           tier: 1, feed: "?" }
+      - { nom: A2A / Linux Foundation,url: "?",                                           tier: 1, feed: "?" }
+    surveiller:
+      - changements de spec et dates de version (format AAAA-MM-JJ)
+      - discussions de la roadmap dans les issues GitHub
+
+  # ── B3 · Gateways & gouvernance ───────────────────────────────
+  - id: b3
+    nom: Gateways & gouvernance
+    cadence: quotidien
+    sources:
+      - { nom: Kong Blog,             url: "https://konghq.com/blog",                     tier: 1, feed: "?" }
+      - { nom: Cloudflare Blog,       url: "https://blog.cloudflare.com",                 tier: 1, feed: "?" }
+      - { nom: Gravitee Blog,         url: "?",                                           tier: 1, feed: "?" }
+      - { nom: Apigee / Google Cloud, url: "?",                                           tier: 1, feed: "?" }
+      - { nom: WSO2 Blog,             url: "?",                                           tier: 1, feed: "?" }
+      - { nom: Azure API Management,  url: "?",                                           tier: 1, feed: "?" }
+      - { nom: Gartner (communiqués), url: "?",                                           tier: 2, feed: "?" }
+    surveiller:
+      - convergence API Gateway / AI Gateway / MCP Gateway
+      - annonces de support A2A
+
+  # ── B4 · Intégration & iPaaS ──────────────────────────────────
+  - id: b4
+    nom: Intégration & iPaaS
+    cadence: hebdo
+    sources:
+      - { nom: Kestra Blog,           url: "https://kestra.io/blogs",                     tier: 1, feed: "?" }
+      - { nom: Workato Newsroom,      url: "https://www.workato.com/",                    tier: 1, feed: "?" }
+      - { nom: Boomi Blog,            url: "?",                                           tier: 1, feed: "?" }
+      - { nom: MuleSoft Blog,         url: "?",                                           tier: 1, feed: "?" }
+      - { nom: n8n Blog,              url: "?",                                           tier: 1, feed: "?" }
+      - { nom: Temporal Blog,         url: "?",                                           tier: 1, feed: "?" }
+      - { nom: Confluent Blog,        url: "?",                                           tier: 1, feed: "?" }
+    surveiller:
+      - changements de positionnement marketing (le vocabulaire trahit la stratégie)
+      - exposition MCP des connecteurs existants
+
+  # ── B5 · Frameworks & LLMOps ──────────────────────────────────
+  - id: b5
+    nom: Frameworks & LLMOps
+    cadence: quotidien
+    sources:
+      - { nom: LangChain Blog,        url: "https://www.langchain.com/blog",              tier: 1, feed: "?" }
+      - { nom: Langfuse Changelog,    url: "https://langfuse.com/changelog",              tier: 1, feed: "?" }
+      - { nom: Volcano SDK (GitHub),  url: "https://github.com/Kong/volcano-sdk",         tier: 1, feed: "releases.atom" }
+      - { nom: LlamaIndex Blog,       url: "?",                                           tier: 1, feed: "?" }
+      - { nom: CrewAI,                url: "?",                                           tier: 1, feed: "?" }
+      - { nom: Pydantic AI,           url: "?",                                           tier: 1, feed: "?" }
+      - { nom: Arize Phoenix,         url: "?",                                           tier: 1, feed: "?" }
+    surveiller:
+      - releases GitHub (flux .atom fiable et daté, meilleur signal que les blogs)
+      - changements de licence et de gouvernance de projet
+
+  # ── B6 · Business & marché France ─────────────────────────────
+  - id: b6
+    nom: Business & marché France
+    cadence: hebdo
+    sources:
+      - { nom: Maddyness,             url: "?",                                           tier: 2, feed: "?" }
+      - { nom: L'Usine Digitale,      url: "?",                                           tier: 2, feed: "?" }
+      - { nom: Le Monde Informatique,  url: "?",                                          tier: 2, feed: "?" }
+      - { nom: LeMagIT,               url: "?",                                           tier: 2, feed: "?" }
+      - { nom: France Digitale,       url: "?",                                           tier: 2, feed: "?" }
+      - { nom: TechCrunch,            url: "https://techcrunch.com",                      tier: 2, feed: "?" }
+      - { nom: The Information,       url: "?",                                           tier: 2, feed: "?", note: "payant" }
+    surveiller:
+      - levées, M&A, annonces de programmes IA de grands comptes français
+      - réglementation (AI Act, DORA)
+
+# ── Liste noire ────────────────────────────────────────────────
+# Sites d'agrégation et comparatifs commerciaux : jamais cités comme source
+# primaire. Utilisables uniquement pour repérer un sujet, à condition de
+# remonter ensuite à la source d'origine.
+liste_noire:
+  - comparatifs iPaaS publiés par un éditeur d'iPaaS
+  - blogs "top 10 des meilleurs outils X"
+  - reprises de communiqué sans valeur ajoutée
+
+# ── Recherche ouverte ──────────────────────────────────────────
+# Le registre ne suffit pas : il ne trouve que ce qu'on sait déjà chercher.
+# Compléter chaque passe par des requêtes ouvertes pour attraper les acteurs
+# absents du registre. Tout nouvel acteur pertinent est proposé à l'ajout.
+recherche_ouverte:
+  requetes:
+    - "agentic AI enterprise deployment"
+    - "MCP server production"
+    - "AI gateway governance"
+    - "iPaaS agentic"
+    - "levée de fonds IA France"
+  regle: >
+    Si un sujet remonte uniquement par recherche ouverte et provient d'un
+    acteur absent du registre, l'ajouter en proposition dans le rapport de
+    passe plutôt que de l'insérer silencieusement.

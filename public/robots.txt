@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://newsletter.offro4d.ai/flux.xml

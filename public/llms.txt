@@ -1,0 +1,12 @@
+# H0RS-P1STE
+
+> La veille hebdomadaire sur l'IA agentique, les fournisseurs de modèles, les gateways et l'intégration d'entreprise.
+
+## Numéros
+
+- [#001 — Spécial rentrée — ce que l'été a changé](https://newsletter.offro4d.ai/001/) — 2026-08-28
+
+## Notes
+
+Veille assistée par IA, relue et validée par un humain.
+Les informations non confirmées sont signalées comme telles dans le texte.

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>H0RS-P1STE</title>
+  <subtitle>La veille hebdomadaire sur l&#x27;IA agentique, les fournisseurs de modèles, les gateways et l&#x27;intégration d&#x27;entreprise.</subtitle>
+  <link href="https://newsletter.offro4d.ai/flux.xml" rel="self"/>
+  <link href="https://newsletter.offro4d.ai/"/>
+  <id>https://newsletter.offro4d.ai/</id>
+  <updated>2026-09-05T12:51:57Z</updated>
+  <entry>
+    <title>#001 — Spécial rentrée — ce que l&#x27;été a changé</title>
+    <link href="https://newsletter.offro4d.ai/001/"/>
+    <id>https://newsletter.offro4d.ai/001/</id>
+    <updated>2026-08-28T08:00:00Z</updated>
+    <summary>L&#x27;essentiel sur les fournisseurs de modèles, l&#x27;IA agentique, MCP, les gateways et l&#x27;intégration d&#x27;entreprise — lu, trié et mis en perspective pour les architectes d&#x27;entreprise.</summary>
+  </entry>
+</feed>
