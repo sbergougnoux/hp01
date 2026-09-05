@@ -31,10 +31,25 @@ DESCRIPTION_SITE = (
     "les gateways et l'intégration d'entreprise."
 )
 
+ONGLETS = ["ACCUEIL", "ARCHIVE", "AGENDA", "CONTACT"]
+
+
+def marquer_onglet(html_page, actif):
+    """Renseigne aria-current sur l'onglet courant du menu."""
+    for o in ONGLETS:
+        val = ' aria-current="page"' if o == actif else ""
+        html_page = html_page.replace("{{A_" + o + "}}", val)
+    return html_page
+
+
 MOIS = {
     1: "janvier", 2: "février", 3: "mars", 4: "avril", 5: "mai", 6: "juin",
     7: "juillet", 8: "août", 9: "septembre", 10: "octobre", 11: "novembre",
     12: "décembre",
+}
+MOIS_COURT = {
+    1: "janv.", 2: "févr.", 3: "mars", 4: "avr.", 5: "mai", 6: "juin",
+    7: "juil.", 8: "août", 9: "sept.", 10: "oct.", 11: "nov.", 12: "déc.",
 }
 JOURS = {
     0: "lundi", 1: "mardi", 2: "mercredi", 3: "jeudi",
@@ -244,7 +259,7 @@ def rendre_numero(num, modele, precedent=None, suivant=None):
     if num.get("edition"):
         edition = f'<span class="edition">{html.escape(num["edition"])}</span>'
 
-    return (
+    page = (
         modele
         .replace("{{TITRE_PAGE}}", f'{TITRE_SITE} #{num["numero"]} — {html.escape(num["titre"])}')
         .replace("{{NUMERO}}", num["numero"])
@@ -257,6 +272,7 @@ def rendre_numero(num, modele, precedent=None, suivant=None):
         .replace("{{DESCRIPTION}}", html.escape(num.get("chapo", DESCRIPTION_SITE)))
         .replace("{{URL_CANONIQUE}}", f'{SITE}/{num["slug"]}/')
     )
+    return marquer_onglet(page, "ACCUEIL")
 
 
 def rendre_archive(numeros, modele):
@@ -270,7 +286,7 @@ def rendre_archive(numeros, modele):
             f'<span class="arch-date">{d.day} {MOIS[d.month]} {d.year}</span>'
             f"</a></li>"
         )
-    return (
+    page = (
         modele
         .replace("{{TITRE_PAGE}}", f"{TITRE_SITE} — archive")
         .replace("{{DESCRIPTION}}", html.escape(DESCRIPTION_SITE))
@@ -278,6 +294,7 @@ def rendre_archive(numeros, modele):
         .replace("{{LISTE}}", "\n".join(lignes))
         .replace("{{COMPTE}}", str(len(numeros)))
     )
+    return marquer_onglet(page, "ARCHIVE")
 
 
 def rendre_flux(numeros):
@@ -315,6 +332,124 @@ def rendre_llms(numeros):
     return "\n".join(l) + "\n"
 
 
+# ─────────────────────────────────────────────────────────────
+# Pages simples et agenda
+# ─────────────────────────────────────────────────────────────
+
+def rendre_markdown_simple(md):
+    """Markdown minimal pour les pages : titres, paragraphes, listes."""
+    out, dans_liste = [], False
+    for l in md.split("\n"):
+        l = l.rstrip()
+        if not l.strip():
+            continue
+        if l.startswith("## "):
+            if dans_liste:
+                out.append("    </ul>")
+                dans_liste = False
+            out.append(f"    <h2>{inline(l[3:].strip())}</h2>")
+        elif l.lstrip().startswith("- "):
+            if not dans_liste:
+                out.append("    <ul>")
+                dans_liste = True
+            out.append(f"      <li>{inline(l.lstrip()[2:].strip())}</li>")
+        else:
+            if dans_liste:
+                out.append("    </ul>")
+                dans_liste = False
+            out.append(f"    <p>{inline(l.strip())}</p>")
+    if dans_liste:
+        out.append("    </ul>")
+    return "\n".join(out)
+
+
+def lire_agenda():
+    """Lit config/agenda.md — une ligne par événement, champs séparés par |."""
+    chemin = RACINE / "config" / "agenda.md"
+    if not chemin.exists():
+        return []
+    evenements = []
+    for ligne in chemin.read_text(encoding="utf-8").splitlines():
+        ligne = ligne.strip()
+        if not ligne.startswith("- ") or ligne.startswith("#"):
+            continue
+        champs = [c.strip() for c in ligne[2:].split("|")]
+        if len(champs) < 4:
+            continue
+        dates, titre, lieu, type_ = champs[:4]
+        url = champs[4] if len(champs) > 4 else ""
+        debut = dates.split("..")[0]
+        try:
+            d_obj = datetime.strptime(debut, "%Y-%m-%d")
+        except ValueError:
+            print(f"  ! agenda : date illisible « {debut} », ligne ignorée")
+            continue
+        evenements.append({
+            "dates": dates, "titre": titre, "lieu": lieu,
+            "type": type_, "url": url, "date_obj": d_obj,
+        })
+    evenements.sort(key=lambda e: e["date_obj"])
+    return evenements
+
+
+def format_date_agenda(e):
+    d = e["date_obj"]
+    if ".." in e["dates"]:
+        try:
+            f = datetime.strptime(e["dates"].split("..")[1], "%Y-%m-%d")
+        except ValueError:
+            f = None
+        if f and f.month == d.month:
+            return f"{d.day}–{f.day} {MOIS_COURT[d.month]} {d.year}"
+        if f:
+            return f"{d.day} {MOIS_COURT[d.month]} – {f.day} {MOIS_COURT[f.month]} {d.year}"
+    return f"{d.day} {MOIS_COURT[d.month]} {d.year}"
+
+
+def rendre_agenda(evenements):
+    aujourdhui = datetime.now()
+    a_venir = [e for e in evenements if e["date_obj"] >= aujourdhui]
+    passes = [e for e in evenements if e["date_obj"] < aujourdhui][::-1]
+
+    def bloc(liste, classe=""):
+        if not liste:
+            return '      <p class="vide">Rien pour le moment.</p>'
+        lignes = ["    <ul>"]
+        for e in liste:
+            titre = html.escape(e["titre"])
+            if e["url"]:
+                titre = f'<a href="{html.escape(e["url"])}">{titre}</a>'
+            meta = " · ".join(x for x in [html.escape(e["lieu"]),
+                                          html.escape(e["type"])] if x)
+            lignes.append(
+                f'      <li class="{classe}">'
+                f'<span class="ag-date">{format_date_agenda(e)}</span>'
+                f'<span><span class="ag-titre">{titre}</span>'
+                f'<span class="ag-meta">{meta}</span></span></li>'
+            )
+        lignes.append("    </ul>")
+        return "\n".join(lignes)
+
+    parties = ["    <h2>À venir</h2>", bloc(a_venir)]
+    if passes:
+        parties += ["    <h2>Déjà passé</h2>", bloc(passes, "passe")]
+    return "\n".join(parties)
+
+
+def rendre_page(modele, titre, sous_titre, corps, onglet, classe="", kicker=None):
+    page = (
+        modele
+        .replace("{{TITRE_PAGE}}", f"{TITRE_SITE} — {titre}")
+        .replace("{{DESCRIPTION}}", html.escape(sous_titre))
+        .replace("{{URL_CANONIQUE}}", f"{SITE}/{onglet.lower()}/")
+        .replace("{{KICKER}}", kicker or titre.upper())
+        .replace("{{SOUS_TITRE}}", html.escape(sous_titre))
+        .replace("{{CLASSE}}", classe)
+        .replace("{{CORPS}}", corps)
+    )
+    return marquer_onglet(page, onglet)
+
+
 def main():
     if PUBLIC.exists():
         shutil.rmtree(PUBLIC)
@@ -345,6 +480,31 @@ def main():
     (PUBLIC / "archive").mkdir(exist_ok=True)
     (PUBLIC / "archive" / "index.html").write_text(
         rendre_archive(numeros, modele_arch), encoding="utf-8")
+
+    modele_page = (MODELES / "page.html").read_text(encoding="utf-8")
+
+    # agenda
+    evenements = lire_agenda()
+    (PUBLIC / "agenda").mkdir(exist_ok=True)
+    (PUBLIC / "agenda" / "index.html").write_text(
+        rendre_page(modele_page, "Agenda",
+                    "Salons, conférences et rendez-vous à venir.",
+                    rendre_agenda(evenements), "AGENDA", classe="agenda"),
+        encoding="utf-8")
+    print(f"  ✓ /agenda/ ({len(evenements)} événement(s))")
+
+    # pages markdown
+    for chemin in sorted((RACINE / "contenu" / "pages").glob("*.md")):
+        meta, corps = lire_frontmatter(chemin.read_text(encoding="utf-8"))
+        slug = meta.get("slug", chemin.stem)
+        dossier = PUBLIC / slug
+        dossier.mkdir(exist_ok=True)
+        (dossier / "index.html").write_text(
+            rendre_page(modele_page, meta.get("titre", slug),
+                        meta.get("sous_titre", DESCRIPTION_SITE),
+                        rendre_markdown_simple(corps), slug.upper()),
+            encoding="utf-8")
+        print(f"  ✓ /{slug}/")
 
     (PUBLIC / "flux.xml").write_text(rendre_flux(numeros), encoding="utf-8")
     (PUBLIC / "llms.txt").write_text(rendre_llms(numeros), encoding="utf-8")

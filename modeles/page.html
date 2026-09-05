@@ -261,11 +261,10 @@
   <header>
     <div class="kicker">
       <span></span>
-      <span><span class="num">#{{NUMERO}}</span> · {{DATE_LONGUE}}</span>
+      <span>{{KICKER}}</span>
     </div>
     <h1 class="masthead" aria-label="Hors-Piste">H<span class="bit">0</span>RS<span class="slash">-</span>P<span class="bit">1</span>STE</h1>
-    {{EDITION}}
-    <p class="tagline">{{CHAPO}}</p>
+    <p class="tagline">{{SOUS_TITRE}}</p>
     <nav class="menu">
       <a href="/"{{A_ACCUEIL}}>Dernier numéro</a>
       <a href="/archive/"{{A_ARCHIVE}}>Archive</a>
@@ -274,12 +273,13 @@
     </nav>
   </header>
 
+  <main class="page {{CLASSE}}">
 {{CORPS}}
+  </main>
 
   <footer>
-    <div class="nav-numeros">{{NAV}}</div>
+    <div class="nav-numeros"><a href="/">← Dernier numéro</a></div>
     <p><span class="sig">H0RS-P1STE</span> — la veille hebdomadaire sur l'IA agentique, les fournisseurs de modèles, les gateways et l'intégration d'entreprise.</p>
-    <p>Numéro {{NUMERO}} · sources vérifiées le {{DATE_ISO}} · les informations non confirmées sont signalées comme telles.</p>
     <p>Veille assistée par IA, relue et validée par un humain.</p>
   </footer>
 </div>

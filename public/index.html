@@ -199,6 +199,61 @@
     .arch-date { grid-column: 2; }
   }
 </style>
+<style>
+  /* ── Navigation ─────────────────────── */
+  nav.menu {
+    display: flex; flex-wrap: wrap; gap: 22px;
+    padding: 18px 0 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  nav.menu a { color: var(--muted); padding-bottom: 3px; border-bottom: 1px solid transparent; }
+  nav.menu a:hover { color: var(--ink); text-decoration: none; border-color: var(--hairline); }
+  nav.menu a[aria-current="page"] { color: var(--lime); border-color: var(--lime); }
+  nav.menu a.bientot { color: #4b5147; cursor: default; }
+  nav.menu a.bientot:hover { color: #4b5147; border-color: transparent; }
+
+  /* ── Pages simples ──────────────────── */
+  .page { padding: 40px 0 20px; }
+  .page h2 {
+    font-family: "Space Grotesk", sans-serif; font-weight: 500;
+    font-size: 22px; margin-top: 38px;
+  }
+  .page h2:first-child { margin-top: 0; }
+  .page p { margin-top: 12px; color: #c9cdc2; max-width: 60ch; }
+  .page ul { margin-top: 12px; list-style: none; }
+  .page li { padding: 6px 0; color: #c9cdc2; max-width: 60ch; }
+  .page li::before { content: "▸ "; color: var(--lime); }
+
+  /* ── Agenda ─────────────────────────── */
+  .agenda h2 {
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--lime);
+    margin-top: 44px; padding-bottom: 8px; border-bottom: 1px solid var(--hairline);
+  }
+  .agenda h2:first-child { margin-top: 0; }
+  .agenda ul { list-style: none; margin-top: 4px; }
+  .agenda li {
+    display: grid; grid-template-columns: 108px 1fr; gap: 18px;
+    padding: 16px 0; border-bottom: 1px solid var(--hairline);
+    align-items: baseline;
+  }
+  .ag-date {
+    font-family: "JetBrains Mono", monospace; font-size: 12.5px;
+    color: var(--pixel); white-space: nowrap;
+  }
+  .ag-titre { font-family: "Space Grotesk", sans-serif; font-size: 17px; }
+  .ag-meta {
+    display: block; margin-top: 3px;
+    font-family: "JetBrains Mono", monospace; font-size: 11.5px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+  .agenda .passe { opacity: 0.5; }
+  .agenda .vide { color: var(--muted); padding: 18px 0; }
+  @media (max-width: 560px) {
+    .agenda li { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
 </head>
 <body>
 
@@ -211,6 +266,12 @@
     <h1 class="masthead" aria-label="Hors-Piste">H<span class="bit">0</span>RS<span class="slash">-</span>P<span class="bit">1</span>STE</h1>
     <span class="edition">Spécial rentrée · ce que l&#x27;été a changé</span>
     <p class="tagline">L&#x27;essentiel sur les fournisseurs de modèles, l&#x27;IA agentique, MCP, les gateways et l&#x27;intégration d&#x27;entreprise — lu, trié et mis en perspective pour les architectes d&#x27;entreprise.</p>
+    <nav class="menu">
+      <a href="/" aria-current="page">Dernier numéro</a>
+      <a href="/archive/">Archive</a>
+      <a href="/agenda/">Agenda</a>
+      <a href="/contact/">Contact</a>
+    </nav>
   </header>
 
   <div class="edito">

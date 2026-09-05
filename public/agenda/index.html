@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{TITRE_PAGE}}</title>
-<meta name="description" content="{{DESCRIPTION}}">
-<link rel="canonical" href="{{URL_CANONIQUE}}">
+<title>H0RS-P1STE — Agenda</title>
+<meta name="description" content="Salons, conférences et rendez-vous à venir.">
+<link rel="canonical" href="https://newsletter.offro4d.ai/agenda/">
 <link rel="alternate" type="application/atom+xml" title="H0RS-P1STE" href="/flux.xml">
-<meta property="og:title" content="{{TITRE_PAGE}}">
-<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:title" content="H0RS-P1STE — Agenda">
+<meta property="og:description" content="Salons, conférences et rendez-vous à venir.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="{{URL_CANONIQUE}}">
+<meta property="og:url" content="https://newsletter.offro4d.ai/agenda/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -261,25 +261,26 @@
   <header>
     <div class="kicker">
       <span></span>
-      <span><span class="num">#{{NUMERO}}</span> · {{DATE_LONGUE}}</span>
+      <span>AGENDA</span>
     </div>
     <h1 class="masthead" aria-label="Hors-Piste">H<span class="bit">0</span>RS<span class="slash">-</span>P<span class="bit">1</span>STE</h1>
-    {{EDITION}}
-    <p class="tagline">{{CHAPO}}</p>
+    <p class="tagline">Salons, conférences et rendez-vous à venir.</p>
     <nav class="menu">
-      <a href="/"{{A_ACCUEIL}}>Dernier numéro</a>
-      <a href="/archive/"{{A_ARCHIVE}}>Archive</a>
-      <a href="/agenda/"{{A_AGENDA}}>Agenda</a>
-      <a href="/contact/"{{A_CONTACT}}>Contact</a>
+      <a href="/">Dernier numéro</a>
+      <a href="/archive/">Archive</a>
+      <a href="/agenda/" aria-current="page">Agenda</a>
+      <a href="/contact/">Contact</a>
     </nav>
   </header>
 
-{{CORPS}}
+  <main class="page agenda">
+    <h2>À venir</h2>
+      <p class="vide">Rien pour le moment.</p>
+  </main>
 
   <footer>
-    <div class="nav-numeros">{{NAV}}</div>
+    <div class="nav-numeros"><a href="/">← Dernier numéro</a></div>
     <p><span class="sig">H0RS-P1STE</span> — la veille hebdomadaire sur l'IA agentique, les fournisseurs de modèles, les gateways et l'intégration d'entreprise.</p>
-    <p>Numéro {{NUMERO}} · sources vérifiées le {{DATE_ISO}} · les informations non confirmées sont signalées comme telles.</p>
     <p>Veille assistée par IA, relue et validée par un humain.</p>
   </footer>
 </div>
